@@ -1,0 +1,1 @@
+require 'cinch/bot_template/cinch-bot_template'

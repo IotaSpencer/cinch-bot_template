@@ -1,4 +1,4 @@
-require 'cinch-bot_template/cli'
+require 'cinch/bot_template/main/cli'
 
 module Cinch
   module BotTemplate
