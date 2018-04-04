@@ -18,4 +18,4 @@
 
 [![Website](https://img.shields.io/website-up-down-green-red/https/iotaspencer.me.svg?label=My%20Site%20-%20IotaSpencer%2Eme&style=for-the-badge)](https://iotaspencer.me)
 
-[![E-mail](https://img.shields.io/badge/cinch-bot_template%20on%20IotaSpencer%2eme-Project-green.svg?style=for-the-badge)](https://iotaspencer.me/projects/cinch-bot_template)
+![Website](https://img.shields.io/website/http/shields.io.svg?label=cinch-bot_template%20on%20IotaSpencer.me&style=for-the-badge)
