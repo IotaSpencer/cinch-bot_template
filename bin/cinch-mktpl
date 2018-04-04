@@ -1,4 +1,4 @@
 #! /usr/bin/env ruby
 
 require 'cinch/bot_template'
-Cinch::BotTemplate::CLI.start(ARGV)
+Cinch::BotTemplate::CLI::App.start(ARGV)
