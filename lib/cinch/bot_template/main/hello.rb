@@ -1,9 +1,11 @@
 require 'thor'
 require 'highline'
+
+require 'cinch/bot_template/templates/hello'
 module Cinch
   module BotTemplate
     module CLI
-      class Base
+      class Hello
         def initialize
           @hl = HighLine.new($stdin, $stderr, 80)
           @opts = Hash.new{ |hash, key| hash[key] = {} }
@@ -23,14 +25,7 @@ module Cinch
 
           @opts['bot']['file'] = filename.include?('.rb') ? filename : filename + '.rb'
         end
-        # @note Whether the bot will be multi-server/multi-network
-        # @overload :get_003_bot_multi_server
-        #   This makes the generator use more threads to make a bot instance
-        #   connect to multiple networks.
-        def get_003_bot_multi_server
-          @hl.say "Do you want the bot to be multi-server"
-          @opts['bot']['multi-server'] = @hl.agree "    > ", true
-        end
+
 
         def generate
           meths = self.methods.select { |x| x =~ /^get_[0-9]+_.*/ }
@@ -41,7 +36,7 @@ module Cinch
           @hl.say "Generating... "
           puts @opts.inspect
           Cinch::BotTemplate.show_wait_spinner(10) do
-
+            puts Cinch::BotTemplate::Templates::Hello.generate()
           end
         end
       end
