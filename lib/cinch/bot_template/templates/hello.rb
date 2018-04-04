@@ -7,7 +7,7 @@ module Cinch
 
         def generate(*args)
 
-          <<-HELLO
+          hello = <<~HELLO
           require 'cinch'
 
           bot = Cinch::Bot.new do
@@ -17,12 +17,14 @@ module Cinch
             end
 
             on :message, "hello" do |m|
-              m.reply "Hello, #{m.user.nick}"
+              m.reply "Hello, \#{m.user.nick}"
             end
           end
 
           bot.start
           HELLO
+
+          hello
         end
       end
     end
