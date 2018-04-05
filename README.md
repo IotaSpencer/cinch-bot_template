@@ -19,3 +19,20 @@
 [![Website](https://img.shields.io/website-up-down-green-red/https/iotaspencer.me.svg?label=My%20Site%20-%20IotaSpencer%2Eme&style=for-the-badge)](https://iotaspencer.me)
 
 ![Website](https://img.shields.io/website/http/shields.io.svg?label=cinch-bot_template%20on%20IotaSpencer.me&style=for-the-badge)
+
+## Usage
+
+### Generate a Hello World Skeleton
+
+
+```shell
+$ cinch-mktpl hello
+```
+```
+What's the bot's name
+    > Cinch
+    
+What should the executable file be named.
+The generator will add .rb automatically.
+    > start
+```
