@@ -2,18 +2,18 @@ require 'fileutils'
 module Cinch
   module BotTemplate
     module Templates
-      module Hello
-        module_function
+      class Hello
+        def generate(nick:)
 
-        def generate(*args)
 
           hello = <<~HELLO
           require 'cinch'
 
           bot = Cinch::Bot.new do
             configure do |c|
-              c.server = "irc.freenode.org"
-              c.channels = ["#cinch-bots"]
+              c.server = "irc.electrocode.net"
+              c.channels = ["#bots"]
+              c.nick = '#{nick}'
             end
 
             on :message, "hello" do |m|
