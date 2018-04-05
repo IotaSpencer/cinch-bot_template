@@ -1,7 +1,7 @@
 require 'thor'
 require 'cinch/bot_template/main/plugin'
 require 'cinch/bot_template/main/bot'
-require 'cinch/bot_template/main/hello'
+require 'cinch/bot_template/classes/hello'
 require 'cinch/bot_template/main/cli'
 require 'cinch/bot_template/main/spinner'
 module Cinch
@@ -26,7 +26,7 @@ module Cinch
 
         desc 'hello', 'Creates a simple hello world bot in one file'
         def hello
-          generator = Cinch::BotTemplate::CLI::Hello.new
+          generator = Cinch::BotTemplate::Classes::Hello.new
           generator.generate
         end
 
