@@ -7,18 +7,19 @@ module Cinch
   module BotTemplate
     module CLI
       class Base
-        def initialize(directory, options)
+        def initialize(directory, shell, options)
           @hl = HighLine.new($stdin, $stderr, 80)
           @opts = Hash.new{ |hash, key| hash[key] = {} }
           @options = options
           @directory = directory
+          @shell = shell
         end
 
         def generate
           bot = Cinch::BotTemplate::Classes::Bot.new(directory: @directory, options: @options, all: true)
           bot.generate
 
-          config = Cinch::BotTemplate::Classes::Config.new(directory: @directory, options: @options, all: true)
+          config = Cinch::BotTemplate::Classes::Config.new(options: @options, shell: @shell, all: true)
           config.generate
         end
       end
