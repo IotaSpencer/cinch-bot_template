@@ -30,7 +30,7 @@ module Cinch
         long_desc Cinch::BotTemplate::Descs::Gen.Gen
 
         def gen(dir)
-          generator = Cinch::BotTemplate::CLI::Base.new(dir, options: options)
+          generator = Cinch::BotTemplate::CLI::Base.new(dir, self.shell,options: options)
           generator.generate
         end
 
