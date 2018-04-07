@@ -6,8 +6,8 @@ module Cinch
     class Plugin < Thor
       long_desc Cinch::BotTemplate::Descs::Plugin.Gen
       desc 'gen [options]', 'Generate a plugin'
-      def gen
-        generator = Cinch::BotTemplate::Classes::Plugin.new(directory: directory, options: options)
+      def gen(dir)
+        generator = Cinch::BotTemplate::Classes::Plugin.new(directory: dir, options: options)
         generator.generate
       end
     end
