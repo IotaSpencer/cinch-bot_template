@@ -6,10 +6,11 @@ module Cinch
   module BotTemplate
     module Classes
       class Hello
-        def initialize
-          @hl = HighLine.new($stdin, $stderr, 80)
-          @opts = Hash.new{ |hash, key| hash[key] = {} }
-
+        def initialize(directory:, options:)
+          @hl        = HighLine.new($stdin, $stderr, 80)
+          @opts      = Hash.new { |hash, key| hash[key] = {} }
+          @directory = directory
+          @options   = options
         end
 
 
@@ -17,6 +18,7 @@ module Cinch
           @hl.say "What's the bot's name"
           @opts['bot']['nick'] = @hl.ask "    > ", String
         end
+
         # @note What the executable file will be named + .rb
         def get_002_bot_file
           @hl.say "What should the executable file be named."
