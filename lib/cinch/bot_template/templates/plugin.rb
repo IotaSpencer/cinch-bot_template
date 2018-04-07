@@ -9,7 +9,7 @@ module Cinch
 
           bot = <<~BOT
           
-          class #{plugin_name.camelize}
+          class #{plugin_name.camelize}Plugin
             include Cinch::Plugin
 
             match /^hello$/, method: :hello_world
