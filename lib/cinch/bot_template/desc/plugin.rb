@@ -2,7 +2,6 @@ require 'paint'
 module Cinch
   module BotTemplate
     module Descs
-
       module Plugin
         module_function
 
