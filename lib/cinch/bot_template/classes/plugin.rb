@@ -6,15 +6,23 @@ module Cinch
   module BotTemplate
     module Classes
       class Plugin
-        def initialize
+        def initialize(directory:, options:, all: false)
           @hl = HighLine.new($stdin, $stderr, 80)
           @opts = Hash.new{ |hash, key| hash[key] = {} }
-
+          @all = all
+          @directory = directory
+          @options = options
         end
-
+        # @param [String] file_path File path to config as string to parse
+        def parse_config_path(file_path)
+          path = Pathname(file_path)
+          path = File.expand_path(path)
+          path.to_s
+        end
 
         def get_001_plugin_name
           @hl.say "What's the plugin name?"
+          @hl.say "Whatever you put here will have 'Plugin' appended to it."
           @opts['plugin_name'] = @hl.ask "    > ", String
         end
         # @note What the executable file will be named + .rb
