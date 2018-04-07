@@ -6,11 +6,13 @@ module Cinch
   module BotTemplate
 
     class Config < Thor
+
       desc 'gen [options]', 'Generate the executable for a bot'
+      method_option 'multi-server', type: :boolean, default: false, aliases: %w(-m), required: false, hide: true
 
       long_desc Cinch::BotTemplate::Descs::Plugin.Gen
       def gen
-        generator = Cinch::BotTemplate::Classes::Config.new(directory: directory, options: options)
+        generator = Cinch::BotTemplate::Classes::Config.new(options: options, shell: self.shell)
         generator.generate
       end
     end
