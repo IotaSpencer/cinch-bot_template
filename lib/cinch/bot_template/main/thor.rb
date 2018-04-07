@@ -48,7 +48,7 @@ class Thor
   end
   module Shell
     class Basic
-      def prepare_message(message, *color, paint:)
+      def prepare_message(message, *color, paint: true)
         case paint
         when true
           spaces = "  " * padding
