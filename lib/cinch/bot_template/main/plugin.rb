@@ -4,10 +4,10 @@ require 'thor'
 module Cinch
   module BotTemplate
     class Plugin < Thor
+      long_desc Cinch::BotTemplate::Descs::Plugin.Gen
       desc 'gen [options]', 'Generate a plugin'
-      # @param [String] plugin_name Name of the plugin
       def gen
-        generator = Cinch::BotTemplate::Classes::Plugin.new
+        generator = Cinch::BotTemplate::Classes::Plugin.new(directory: directory, options: options)
         generator.generate
       end
     end

@@ -1,17 +1,16 @@
 require 'cinch/bot_template/classes/bot'
 require 'cinch/bot_template/main/desc'
-require 'thor'
+require  'thor'
 
 module Cinch
   module BotTemplate
 
-    class Bot < Thor
-
-      method_option 'multi-server', type: :boolean, default: false, aliases: %w(-m), hide: true
-      long_desc Descs::Bot.Gen
+    class Config < Thor
       desc 'gen [options]', 'Generate the executable for a bot'
+
+      long_desc Cinch::BotTemplate::Descs::Plugin.Gen
       def gen
-        generator = Cinch::BotTemplate::Classes::Bot.new(options)
+        generator = Cinch::BotTemplate::Classes::Config.new(directory: directory, options: options)
         generator.generate
       end
     end
