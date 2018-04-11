@@ -5,8 +5,8 @@ module Cinch
       class Bot
 
 
-        def generate(multi:, config_path:)
-          cfg = config_path
+        def generate(multi:, config_file:)
+          cfg = config_file
           if multi
             bot = <<~BOT
               #! /usr/bin/env ruby
