@@ -6,10 +6,11 @@ module Cinch
   module BotTemplate
     module Classes
       class Hello
-        def initialize(directory:, options:)
+        def initialize(directory: Pathname('.'), shell:, options: {})
           @hl        = HighLine.new($stdin, $stderr, 80)
           @opts      = Hash.new { |hash, key| hash[key] = {} }
           @directory = directory
+          @shell = shell
           @options   = options
         end
 
