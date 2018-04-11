@@ -5,7 +5,7 @@ require 'cinch/bot_template/main/plugin'
 require 'cinch/bot_template/main/bot'
 require 'cinch/bot_template/classes/hello'
 require 'cinch/bot_template/main/config'
-
+require 'cinch/bot_template/classes/exceptions'
 require 'cinch/bot_template/main/cli'
 require 'cinch/bot_template/main/spinner'
 
@@ -13,6 +13,9 @@ module Cinch
   module BotTemplate
     module CLI
       class App < Thor
+        def self.exit_on_failure?
+          true
+        end
         class_option(:debug, type: :boolean, hide: true)
 
         map %w[--version -v] => :__print_version
@@ -29,8 +32,8 @@ module Cinch
 
         long_desc Cinch::BotTemplate::Descs::Gen.Gen
 
-        def gen(dir)
-          generator = Cinch::BotTemplate::CLI::Base.new(dir, self.shell,options: options)
+        def gen
+          generator = Cinch::BotTemplate::CLI::Base.new(shell: self.shell, options: options)
           generator.generate
         end
 
@@ -38,7 +41,7 @@ module Cinch
         long_desc Cinch::BotTemplate::Descs::Hello.Gen
 
         def hello
-          generator = Cinch::BotTemplate::Classes::Hello.new
+          generator = Cinch::BotTemplate::Classes::Hello.new(shell: self.shell)
           generator.generate
         end
 
