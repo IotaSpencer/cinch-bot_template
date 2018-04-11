@@ -6,13 +6,15 @@ module Cinch
   module BotTemplate
     module Classes
       class Plugin
-        def initialize(directory:, options:, all: false)
-          @hl = HighLine.new($stdin, $stderr, 80)
-          @opts = Hash.new{ |hash, key| hash[key] = {} }
-          @all = all
+        def initialize(directory: Pathname('.').to_s, shell:, options:, all: false)
+          @hl        = HighLine.new($stdin, $stderr, 80)
+          @opts      = Hash.new { |hash, key| hash[key] = {} }
+          @all       = all
+          @shell = shell
           @directory = directory
-          @options = options
+          @options   = options
         end
+
         # @param [String] file_path File path to config as string to parse
         def parse_config_path(file_path)
           path = Pathname(file_path)
@@ -20,42 +22,26 @@ module Cinch
           path.to_s
         end
 
-        def get_001_plugin_name
-          @hl.say "What's the plugin name?"
-          @hl.say "Whatever you put here will have 'Plugin' appended to it."
-          @opts['plugin_name'] = @hl.ask "    > ", String
-        end
-        # @note What the executable file will be named + .rb
-        def get_002_plugin_file
-          @hl.say "What should the plugin file be named."
-          @hl.say "Use a hyphen by itself '-' to output to stdout "
-          @hl.say "instead of a file."
-          @hl.say "The generator will add .rb automatically."
-          filename = @hl.ask "    > ", String
-          if filename == '-'
-            @opts['stdout'] = true
-            return
-          end
-          @opts['plugin_file'] = filename.include?('.rb') ? filename : filename + '.rb'
+        def get_001_plugin_names
+          @hl.say "What's the plugin name(s)?"
+          @hl.say "Each name you put here will have 'Plugin' appended to it."
+          @hl.say "Each name will become a separate plugin file"
+          @opts['plugin_names'] = @hl.ask "    > ", -> (str) { str.split(' ') }
         end
 
 
-        def generate
+        def generate(directory:)
           meths = self.methods.select { |x| x =~ /^get_[0-9]+_.*/ }
           meths.sort! { |m, n| m.to_s.gsub(/^get_([0-9]+)_.*/, '\1').to_i <=> n.to_s.gsub(/^get_([0-9]+)_.*/, '\1').to_i }
           meths.each do |m|
             self.send(m)
           end
           @hl.say "Generating..."
-          tpl = Cinch::BotTemplate::Templates::Plugin.new.generate(plugin_name: @opts['plugin_name'])
-          Cinch::BotTemplate.show_wait_spinner(5) do
-            if @opts.fetch('stdout', nil)
-              puts tpl
-            else
-              filename = @opts.dig('plugin_file')
-              open filename, 'a+' do |fd|
-                fd.puts tpl
-              end
+          plugins = Cinch::BotTemplate::Templates::Plugin.generate(plugin_names: @opts['plugin_names'])
+          FileUtils.mkpath(directory.join('plugins'))
+          plugins.each do |plugin, text|
+            open Pathname(directory).join('plugins', plugin), 'w' do |fd|
+              fd.puts text
             end
           end
         end
