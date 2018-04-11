@@ -11,9 +11,9 @@ module Cinch
       method_option 'multi-server', type: :boolean, default: false, aliases: %w(-m), required: false, hide: true
 
       long_desc Cinch::BotTemplate::Descs::Plugin.Gen
-      def gen
+      def gen(dir)
         generator = Cinch::BotTemplate::Classes::Config.new(options: options, shell: self.shell)
-        generator.generate
+        generator.generate(Pathname(dir))
       end
     end
   end
