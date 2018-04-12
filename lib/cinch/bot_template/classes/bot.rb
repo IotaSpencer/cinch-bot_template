@@ -64,6 +64,7 @@ module Cinch
             open filename, 'a+' do |fd|
               fd.puts tpl
             end
+            File.chmod(775, filename)
           end
         end
       end
