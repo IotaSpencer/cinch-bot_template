@@ -6,12 +6,11 @@ module Cinch
   module BotTemplate
     module Classes
       class Plugin
-        def initialize(directory: Pathname('.').to_s, shell:, options:, all: false)
+        def initialize(shell:, options:, all: false)
           @hl        = HighLine.new($stdin, $stderr, 80)
           @opts      = Hash.new { |hash, key| hash[key] = {} }
           @all       = all
           @shell = shell
-          @directory = directory
           @options   = options
         end
 
@@ -30,7 +29,7 @@ module Cinch
         end
 
 
-        def generate(directory:)
+        def generate(directory: Pathname('.').realdirpath.to_s)
           meths = self.methods.select { |x| x =~ /^get_[0-9]+_.*/ }
           meths.sort! { |m, n| m.to_s.gsub(/^get_([0-9]+)_.*/, '\1').to_i <=> n.to_s.gsub(/^get_([0-9]+)_.*/, '\1').to_i }
           meths.each do |m|
